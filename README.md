@@ -15,7 +15,7 @@ Monthly Sales from 01.2025 to 12.2025
 # 🔄 Workflow
 ## 1. APPEND ALL FILES
 - Load monthly sales data into SQL Server Management Studio
-- Using query to combine into 1 table
+- Using query to combine into 1 table and save file as "Sale_2025.csv"
 ```
 SELECT * FROM [202501]
 UNION ALL SELECT * FROM [202502]
@@ -31,7 +31,8 @@ UNION ALL SELECT * FROM [202511]
 UNION ALL SELECT * FROM [202512]
 ```
 ## 2. Calculate R, F, M values
-Using SQL to compute days since last order (Recency), number of orders (Frequency) and total spend (Monetary) per customer
+- Using SQL to compute days since last order (Recency), number of orders (Frequency) and total spend (Monetary) per customer.
+- Save file as "RFM_RANK.csv"
 ```
 WITH RFM_RANK AS (
 	SELECT 
@@ -52,7 +53,8 @@ FROM RFM_RANK
 ORDER BY Rank_recency DESC;
 ```
 ## 3. Assign decile scores and compute aggregate RFM Score
-Score each dimension on 1-10 scale using quantiles - 10=best; 1=worst
+- Score each dimension on 1-10 scale using quantiles - 10=best; 1=worst
+- Save file as "RFM_SCORE.csv"
 ```
 WITH RFM_SCORE AS (
 	SELECT *,
@@ -67,7 +69,8 @@ FROM RFM_SCORE
 ORDER BY Rfm_score DESC
 ```
 ## 4. Define RFM segments
-Map composite scores into named segments: Champions, Loyal VIP, Potential Loyalists, At risk and more
+- Map composite scores into named segments: Champions, Loyal VIP, Potential Loyalists, At risk and more
+- Save file as "RFM_SEGMENTATION.csv"
 ```
 SELECT *,
 	CASE
